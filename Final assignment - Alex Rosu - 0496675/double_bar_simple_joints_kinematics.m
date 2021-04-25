@@ -2,6 +2,8 @@
 % Alex Rosu 
 % 25.04.2021
 
+clc; clear;
+
 %% Coordinates
 % ground
 q1 = [0; 0; 0];

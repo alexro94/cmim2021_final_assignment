@@ -2,6 +2,8 @@
 % Alex Rosu 
 % 25.04.2021
 
+clc; clear;
+
 %% Defining mass properties and coordinates of the system:
 % Mass properties of the system:
 body(1).m = 1;          % Mass of ground body

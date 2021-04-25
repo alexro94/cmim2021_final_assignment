@@ -118,7 +118,7 @@ driving(2).d_k_tt = @(t) -cos(t)/4;
 %% Solve constraint equation using fsolve
 C_fun = @(t, q) constraint(revolute, simple, driving, t, q);
 tic
-[T, Q] = position_fsolve(C_fun, 2, q_0, 0.1);
+[T, Q] = position_fsolve(C_fun, 2, q_0, 0.01);
 toc
 %% Some verification plots
 plot(Q(:, 4), Q(:, 5), ...
@@ -135,7 +135,7 @@ Cq = constraint_dq(revolute, simple, driving, 0, q_0);
 C_fun = @(t, q) constraint(revolute, simple, driving, t, q);
 Cq_fun = @(t, q) constraint_dq(revolute, simple, driving, t, q);
 tic
-[T, Q] = position_NR(C_fun, Cq_fun, 2, q_0, 0.1);
+[T, Q] = position_NR(C_fun, Cq_fun, 2, q_0, 0.01);
 toc
 
 %% Some verification plots
@@ -153,7 +153,7 @@ Ct = constraint_dt(revolute, simple, driving, 0, q_0);
 C_fun = @(t, q) constraint(revolute, simple, driving, t, q);
 Cq_fun = @(t, q) constraint_dq(revolute, simple, driving, t, q);
 Ct_fun = @(t, q) constraint_dt(revolute, simple, driving, t, q);
-[T, Q, QP] = pos_vel_NR(C_fun, Cq_fun, Ct_fun, 1, q_0, 0.1);
+[T, Q, QP] = pos_vel_NR(C_fun, Cq_fun, Ct_fun, 2, q_0, 0.01);
 
 %% Some verification plots
 plot(Q(:, 4), Q(:, 5), ...
@@ -184,7 +184,31 @@ C_fun = @(t, q) constraint(revolute, simple, driving, t, q);
 Cq_fun = @(t, q) constraint_dq(revolute, simple, driving, t, q);
 Ct_fun = @(t, q) constraint_dt(revolute, simple, driving, t, q);
 g_vec = @(t, q, qp) g_vec_assembly(revolute, simple, driving, t, q, qp);
-[T, Q, QP, QPP] = pos_vel_acc_NR(C_fun, Cq_fun, Ct_fun, g_vec, 1, q_0, 0.1);
+[T, Q, QP, QPP] = pos_vel_acc_NR(C_fun, Cq_fun, Ct_fun, g_vec, 2, q_0, 0.01);
+
+%% Some verification plots
+plot(Q(:, 4), Q(:, 5), ...
+    Q(:, 7), Q(:, 8), ...
+    Q(:, 10), Q(:, 11), ...
+    Q(:, 13), Q(:, 14), ...
+    0, 0, '*', 'LineWidth', 2);
+grid on;
+axis equal;
+xlabel('X [m]');
+ylabel('Y [m]');
+set(gca,'FontSize',14);
+
+%% Some verification plots
+plot(QP(:, 4), QP(:, 5), ...
+    QP(:, 7), QP(:, 8), ...
+    QP(:, 10), QP(:, 11), ...
+    QP(:, 13), QP(:, 14), ...
+    0, 0, '*', 'LineWidth', 2);
+grid on;
+axis equal;
+xlabel('v_x [m/s]');
+ylabel('v_y [m/s]');
+set(gca,'FontSize',14)
 
 %% Some verification plots
 plot(QPP(:, 4), QPP(:, 5), ...

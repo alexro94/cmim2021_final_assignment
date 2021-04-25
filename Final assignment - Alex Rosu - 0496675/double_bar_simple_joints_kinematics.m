@@ -218,6 +218,6 @@ plot(QPP(:, 4), QPP(:, 5), ...
     0, 0, '*', 'LineWidth', 2);
 grid on;
 axis equal;
-xlabel('a_x [m/s]');
-ylabel('a_y [m/s]');
+xlabel('a_x [m/s^2]');
+ylabel('a_y [m/s^2]');
 set(gca,'FontSize',14)
